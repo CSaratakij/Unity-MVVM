@@ -89,6 +89,19 @@ namespace UnityMVVM.View
             RegisterDataBinding();
         }
 
+        protected void Start()
+        {
+            if (_src != null)
+            {
+                bool shouldRecreateViewItem = (_src.Value != null) && (_src.Count > 0);
+
+                if (shouldRecreateViewItem)
+                {
+                    AddElements(0, _src.ValueList);
+                }
+            }
+        }
+
         void UpdateSelectedItem(IModel selected, bool isSelected)
         {
             var items = InstantiatedItems.Select(e => e.GetComponent<ICollectionViewItem>()).ToList();
@@ -259,6 +272,7 @@ namespace UnityMVVM.View
             if (idx < 0)
                 idx = 0;
 
+            /*
             foreach (var item in newItems)
             {
                 //var go = InstantiatedItems[idx];
@@ -286,6 +300,7 @@ namespace UnityMVVM.View
 
                 //InstantiatedItems.InsertRange(newStartingIndex, gameObjects);
             }
+            */
         }
 
         protected virtual void RemoveElements(int oldStartingIndex, IList oldItems)

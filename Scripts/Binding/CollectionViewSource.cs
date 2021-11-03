@@ -47,6 +47,9 @@ namespace UnityMVVM.Binding
             }
         }
 
+        public object Value => src.GetValue();
+        public IList ValueList => (src.GetValue() as IList);
+
         public override void RegisterDataBinding()
         {
             if (IsBound)
