@@ -70,14 +70,27 @@ namespace UnityMVVM.View
         static IEnumerator FadeRoutine(this ViewBase vb, float target, float time, Action callback)
         {
             float start = vb.Alpha;
+
             for (float t = 0f; t < time; t += Time.deltaTime)
             {
                 float normalizedTime = t / time;
                 //right here, you can now use normalizedTime as the third parameter in any Lerp from start to end
-                vb.Alpha = Mathf.Lerp(start, target, normalizedTime);
+                if (vb != null)
+                {
+                    vb.Alpha = Mathf.Lerp(start, target, normalizedTime);
+                }
+                else
+                {
+                    break;
+                }
+
                 yield return null;
             }
-            vb.Alpha = target;
+
+            if (vb != null)
+            {
+                vb.Alpha = target;
+            }
 
             callback?.Invoke();
         }
